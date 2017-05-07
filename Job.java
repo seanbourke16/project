@@ -55,7 +55,7 @@ public class Job {
 		codeSize=0;
 		currentAcc=0;
 		currentPC=startcodeIndex;
-		currentState=State.NOTHING_LOADED;
+		currentState=States.NOTHING_LOADED;
 	}
 	
 	

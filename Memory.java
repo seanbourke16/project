@@ -24,4 +24,7 @@ public class Memory {
 			changedIndex=-1;
 		}
 	}
+    public int[] getData(){
+	return array;
+    }
 }

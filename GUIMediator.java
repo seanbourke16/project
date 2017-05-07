@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class GUIMediator extends Observable{
-	public void step(){}
 	private MachineModel model;
 	private FilesMgr filesMgr;
 	private StepControl stepControl;
@@ -33,13 +32,13 @@ public class GUIMediator extends Observable{
 		
 	}
 	public States getCurrentState(){
-		model.getCurrentStates();
+		return model.getCurrentState();
 	}
 	public void setCurrentState(States s){
 		if (s==States.PROGRAM_HALTED){
 			stepControl.setAutoStepOn(false);
 		}
-		model.setCurrentStates(s);
+		model.setCurrentState(s);
 		model.getCurrentState().enter();
 		setChanged();
 		notifyObservers();
@@ -79,5 +78,6 @@ public class GUIMediator extends Observable{
 		}
 		setChanged();
 		notifyObservers();
+		}
 	}
 }
