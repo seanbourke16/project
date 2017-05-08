@@ -1,15 +1,29 @@
 package project;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.GridLayout;
 import java.util.Observable;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class GUIMediator extends Observable{
 	private MachineModel model;
 	private FilesMgr filesMgr;
 	private StepControl stepControl;
 	private JFrame frame;
+	
+	private CodeViewPanel codeViewPanel;
+	private MemoryViewPanel memoryViewPanel1;
+	private MemoryViewPanel memoryViewPanel2;
+	private MemoryViewPanel memoryViewPanel3;
+	private ControlPanel controlPanel; // Project Part 1?
+	private ProcessorViewPanel processorPanel; // Project Part 1?
+	//private MenuBarBuilder menuBuilder; // Project Part 12
+	
 	public MachineModel getModel() {
 		return model;
 	}
@@ -67,6 +81,36 @@ public class GUIMediator extends Observable{
 		setChanged();
 		notifyObservers();
 	}
+	
+	public void reload(){
+		stepControl.setAutoStepOn(false);
+		clearJob();
+		filesMgr.finalLoad_ReloadStep(model.getCurrentJob());
+	}
+	
+	public void assembleFile(){
+		filesMgr.assembleFile();
+	}
+	
+	public void loadFile(){
+		filesMgr.loadFile(model.getCurrentJob());
+	}
+	
+	public void setPeriod(int value){
+		stepControl.setPeriod(value);
+	}
+	
+	public void changeToJob(int i){
+		model.changeToJob(i);
+		if (model.getCurrentState()!=null){
+			model.getCurrentState().enter();
+			setChanged();
+			notifyObservers();
+		}
+	}
+	
+	
+	
 	public void step(){
 	    if ((model.getCurrentState()!=States.PROGRAM_HALTED) && (model.getCurrentState()!= States.NOTHING_LOADED)){
 		try {
@@ -165,4 +209,50 @@ public class GUIMediator extends Observable{
 	    setChanged();
 	    notifyObservers();
 	}
+    
+    private void createAndShowGUI(){
+    	stepControl = new StepControl(this);
+    	filesMgr = new FilesMgr(this);
+    	//INITIALIZE?
+    	codeViewPanel = new CodeViewPanel(this, model);
+    	memoryViewPanel1 = new MemoryViewPanel(this, model, 0, 240);
+    	memoryViewPanel2 = new MemoryViewPanel(this, model, 240, Memory.DATA_SIZE/2);
+    	memoryViewPanel3 = new MemoryViewPanel(this, model, Memory.DATA_SIZE/2, Memory.DATA_SIZE);
+    	controlPanel = new ControlPanel(this);
+    	processorPanel = new ProcessorViewPanel(this, model);
+    	//menuBuilder = new MenuBarBuilder(this);
+    	frame = new JFrame("Simulator");
+    	Container content = frame.getContentPane();
+    	content.setLayout(new BorderLayout(1,1)); // import java.awt.BorderLayout
+    	content.setBackground(Color.BLACK); // import java.awt.Color
+    	content.setSize(1200, 600);
+    	JPanel center = new JPanel();
+		center.setLayout(new GridLayout(1, 3));
+		frame.add(codeViewPanel.createCodeDisplay(),BorderLayout.LINE_START);
+		frame.add(center, BorderLayout.CENTER);
+		center.add(memoryViewPanel1.createMemoryDisplay());
+		center.add(memoryViewPanel2.createMemoryDisplay());
+		center.add(memoryViewPanel3.createMemoryDisplay());
+		frame.add(controlPanel.createControlDisplay(), BorderLayout.PAGE_END);
+		frame.add(processorPanel.createProcessorDisplay(),BorderLayout.PAGE_START);
+
+		//return HERE for the other GUI components
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// return HERE for other setup details
+		frame.setVisible(true);
+    }
+    
+    public static void main(String[] args) {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                GUIMediator organizer = new GUIMediator();
+                MachineModel model = new MachineModel(
+                //() 
+                //-> organizer.setCurrentState(States.PROGRAM_HALTED)
+                );
+                organizer.setModel(model);
+                organizer.createAndShowGUI();
+            }
+        });
+    }
 }
