@@ -49,7 +49,9 @@ public class ControlPanel implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		stepButton.setEnabled(gui.getCurrentState().getStepActive());
-
+		clearButton.setEnabled(gui.getCurrentState().getClearActive());
+		runButton.setEnabled(gui.getCurrentState().getRunPauseActive());
+		reloadButton.setEnabled(gui.getCurrentState().getReloadActive());
 	}
 
 }

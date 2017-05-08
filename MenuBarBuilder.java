@@ -29,7 +29,6 @@ public class MenuBarBuilder implements Observer {
 	public JMenu createFileMenu(){
 		JMenu menu = new JMenu("File");
 		menu.setMnemonic(KeyEvent.VK_F);
-		menu.add(assemble);
 		assemble.setMnemonic(KeyEvent.VK_M);
 		assemble.setAccelerator(KeyStroke.getKeyStroke(
 				KeyEvent.VK_M, ActionEvent.CTRL_MASK));
@@ -37,30 +36,67 @@ public class MenuBarBuilder implements Observer {
 		menu.add(assemble);
 		//menu.add();
 		
-		menu.add(load);
 		load.setMnemonic(KeyEvent.VK_L);
 		load.setAccelerator(KeyStroke.getKeyStroke(
 				KeyEvent.VK_L, ActionEvent.CTRL_MASK));
-		load.addActionListener(e -> gui.assembleFile());
+		load.addActionListener(e -> gui.loadFile());
 		menu.add(load);
 		//menu.add();
-		
-		menu.add(exit);
+		menu.addSeparator();
 		exit.setMnemonic(KeyEvent.VK_E);
 		exit.setAccelerator(KeyStroke.getKeyStroke(
 				KeyEvent.VK_E, ActionEvent.CTRL_MASK));
-		exit.addActionListener(e -> gui.assembleFile());
+		exit.addActionListener(e -> gui.exit());
 		menu.add(exit);
 		//menu.add();
 		
-		menu.addSeparator();
-		
+		//menu.addSeparator();
+		return menu;
 	}
-	
+    public JMenu createExecuteMenu(){
+	JMenu menu=new JMenu("Execute");
+	menu.setMnemonic(KeyEvent.VK_X);
+	go.setMnemonic(KeyEvent.VK_G);
+	go.setAccelerator(KeyStroke.getKeyStroke(
+						       KeyEvent.VK_G, ActionEvent.CTRL_MASK));
+	go.addActionListener(e -> gui.execute());
+	menu.add(go);
+	return menu;
+    }
+    public JMenu createJobsMenu(){
+	JMenu menu=new JMenu("Change Job");
+	menu.setMnemonic(KeyEvent.VK_J);
+	job0.setMnemonic(KeyEvent.VK_0);
+	job0.setAccelerator(KeyStroke.getKeyStroke(
+						 KeyEvent.VK_0, ActionEvent.CTRL_MASK));
+	job0.addActionListener(e -> gui.changeToJob(0));
+	menu.add(job0);
+	job1.setMnemonic(KeyEvent.VK_1);
+	job1.setAccelerator(KeyStroke.getKeyStroke(
+						 KeyEvent.VK_1, ActionEvent.CTRL_MASK));
+	job1.addActionListener(e -> gui.changeToJob(1));
+	menu.add(job1);
+	job2.setMnemonic(KeyEvent.VK_2);
+	job2.setAccelerator(KeyStroke.getKeyStroke(
+						 KeyEvent.VK_2, ActionEvent.CTRL_MASK));
+	job2.addActionListener(e -> gui.changeToJob(2));
+	menu.add(job2);
+	job3.setMnemonic(KeyEvent.VK_3);
+	job3.setAccelerator(KeyStroke.getKeyStroke(
+						 KeyEvent.VK_3, ActionEvent.CTRL_MASK));
+	job3.addActionListener(e -> gui.changeToJob(0));
+	menu.add(job3);
+	return menu;
+    }
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		assemble.setEnabled(gui.getCurrentState().getAssembleFileActive());
-
+		go.setEnabled(gui.getCurrentState().getStepActive());
+		load.setEnabled(gui.getCurrentState().getLoadFileActive());
+		job0.setEnabled(gui.getCurrentState().getChangeJobActive());
+		job1.setEnabled(gui.getCurrentState().getChangeJobActive());
+		job2.setEnabled(gui.getCurrentState().getChangeJobActive());
+		job3.setEnabled(gui.getCurrentState().getChangeJobActive());
 	}
 
 }

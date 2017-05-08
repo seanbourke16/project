@@ -79,7 +79,7 @@ public class InstructionMap {
 		opcode.put("JMPZ", 0xC);
 		opcode.put("JMPZI", 0xC);
 		opcode.put("JMPZA", 0xC);
-		opcode.put("HALT", 0x15);
+		opcode.put("HALT", 21);
 
 		mnemonics.put(0x0, "NOP");
 		mnemonics.put(0x1, "LOD");

@@ -26,6 +26,10 @@ public class FilesMgr {
 		this.gui=aGui;
 		model=gui.getModel();
 	}
+    public void initialize(){
+	locateDefaultDirectory();
+	loadPropertiesFile();
+    }
 	private void locateDefaultDirectory() {
 		//CODE TO DISCOVER THE ECLIPSE DEFAULT DIRECTORY:
 		File temp = new File("propertyfile.txt");

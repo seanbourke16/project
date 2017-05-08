@@ -51,7 +51,7 @@ public class Loader {
 		MachineModel model = new MachineModel();
 		String s = Loader.load(model, new File("out.pexe"),16,32);
 		for(int i = 16; i < 16+Integer.parseInt(s); i++) {
-		    System.out.println(i);
+		    //System.out.println(i);
 			System.out.println(model.getCode().getText(i));			
 		}
 		System.out.println("--");

@@ -9,6 +9,7 @@ import java.util.Observable;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JMenuBar;
 
 public class GUIMediator extends Observable{
 	private MachineModel model;
@@ -22,7 +23,7 @@ public class GUIMediator extends Observable{
 	private MemoryViewPanel memoryViewPanel3;
 	private ControlPanel controlPanel; // Project Part 1?
 	private ProcessorViewPanel processorPanel; // Project Part 1?
-	//private MenuBarBuilder menuBuilder; // Project Part 12
+	private MenuBarBuilder menuBuilder; // Project Part 12
 	
 	public MachineModel getModel() {
 		return model;
@@ -213,15 +214,20 @@ public class GUIMediator extends Observable{
     private void createAndShowGUI(){
     	stepControl = new StepControl(this);
     	filesMgr = new FilesMgr(this);
-    	//INITIALIZE?
+    	filesMgr.initialize();
     	codeViewPanel = new CodeViewPanel(this, model);
     	memoryViewPanel1 = new MemoryViewPanel(this, model, 0, 240);
     	memoryViewPanel2 = new MemoryViewPanel(this, model, 240, Memory.DATA_SIZE/2);
     	memoryViewPanel3 = new MemoryViewPanel(this, model, Memory.DATA_SIZE/2, Memory.DATA_SIZE);
     	controlPanel = new ControlPanel(this);
     	processorPanel = new ProcessorViewPanel(this, model);
-    	//menuBuilder = new MenuBarBuilder(this);
+    	menuBuilder = new MenuBarBuilder(this);
     	frame = new JFrame("Simulator");
+	JMenuBar bar = new JMenuBar(); // import javax.swing.JMenuBar
+	frame.setJMenuBar(bar);
+	bar.add(menuBuilder.createFileMenu());
+	bar.add(menuBuilder.createExecuteMenu());
+	bar.add(menuBuilder.createJobsMenu());
     	Container content = frame.getContentPane();
     	content.setLayout(new BorderLayout(1,1)); // import java.awt.BorderLayout
     	content.setBackground(Color.BLACK); // import java.awt.Color

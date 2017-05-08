@@ -1,0 +1,4 @@
+#File locations
+#Mon May 08 04:41:14 EDT 2017
+ExecutableDirectory=C\:/Users/Sean/workspace/project/project/
+SourceDirectory=C\:/Users/Sean/workspace/project/project/
