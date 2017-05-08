@@ -11,7 +11,7 @@ public class Memory {
 		return array[index];
 	}
 	public void setData(int index, int value){
-		array[index]=value;
+	    array[index]=value;
 		changedIndex=index;
 	}
 	public int getChangedIndex() {

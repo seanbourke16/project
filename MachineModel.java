@@ -6,7 +6,7 @@ import java.util.TreeMap;
 public class MachineModel {
     Map<Integer, Instruction> IMAP = new TreeMap<Integer, Instruction>();
     private CPU cpu;
-    private Memory memory;
+    private Memory memory=new Memory();
     private HaltCallback callback;
     private Job[] jobs = new Job[4];
     private Job currentJob;

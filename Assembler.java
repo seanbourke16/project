@@ -17,7 +17,7 @@ public class Assembler {
 			System.out.println();
 			while(sc.hasNextLine()){
 				if(dashes){
-					data.add(sc.next());
+					data.add(sc.nextLine());
 					//System.out.println(counter);
 				}
 				else{
