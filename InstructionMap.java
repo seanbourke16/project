@@ -91,9 +91,9 @@ public class InstructionMap {
 		mnemonics.put(0x7, "AND");
 		mnemonics.put(0x8, "NOT");
 		mnemonics.put(0x9, "CMPL");
-		mnemonics.put(0x10, "CMPZ");
-		mnemonics.put(0x11, "JUMP");
-		mnemonics.put(0x12, "JMPZ");
-		mnemonics.put(0x15, "HALT");
+		mnemonics.put(0xA, "CMPZ");
+		mnemonics.put(0xB, "JUMP");
+		mnemonics.put(0xC, "JMPZ");
+		mnemonics.put(0xF, "HALT");
 	}
 }

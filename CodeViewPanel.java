@@ -77,7 +77,7 @@ public class CodeViewPanel implements Observer {
 			for(int i = offset; 
 					i < offset + model.getCurrentJob().getCodeSize(); i++) {
 				codeText[i].setText(code.getText(i));
-				codeHex[i].setText(code.getHex(i));
+				//codeHex[i].setText(code.getHex(i));
 			}	
 			previousColor = model.getpCounter();			
 			codeHex[previousColor].setBackground(Color.YELLOW);

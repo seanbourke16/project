@@ -45,10 +45,9 @@ public class Code {
 	public String getText(int i){
 		StringBuilder bldr = new StringBuilder();
 		String mnem = InstructionMap.mnemonics.get(getOp(i));
-		System.out.println(mnem);
-		System.out.println(i);
 		bldr.append(mnem);
 		int x = getIndirLvl(i);
+		System.out.println(getOp(i));
 		if (x == 0 && (!InstructionMap.noArgument.contains(mnem))){
 			bldr.append("I ");
 		} else if (x==0 && InstructionMap.noArgument.contains(mnem)){
@@ -58,7 +57,7 @@ public class Code {
 		} else if (x==2){
 			bldr.append(" [");
 		} else if (x==3){
-			bldr.append('A');
+			bldr.append("A ");
 		}
 		int arg = getArg(i);
 		if (arg >= 0){
