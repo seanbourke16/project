@@ -94,6 +94,6 @@ public class InstructionMap {
 		mnemonics.put(0xA, "CMPZ");
 		mnemonics.put(0xB, "JUMP");
 		mnemonics.put(0xC, "JMPZ");
-		mnemonics.put(0xF, "HALT");
+		mnemonics.put(21, "HALT");
 	}
 }

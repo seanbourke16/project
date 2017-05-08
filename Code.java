@@ -41,13 +41,25 @@ public class Code {
 			code[start+i]=0;
 		}
 	}
+    public String getHex(int i){
+	    int a=getOp(i);
+	    int b=getIndirLvl(i);
+	    int c;
+	    if(getArg(i)>0){
+		c=getArg(i);
+	    }
+	    else{
+		c=-getArg(i);
+	    }
+	    return Integer.toHexString(a).toUpperCase()+" "+Integer.toHexString(b).toUpperCase()+" "+Integer.toHexString(c).toUpperCase();
+    }
 	
 	public String getText(int i){
 		StringBuilder bldr = new StringBuilder();
 		String mnem = InstructionMap.mnemonics.get(getOp(i));
 		bldr.append(mnem);
 		int x = getIndirLvl(i);
-		System.out.println(getOp(i));
+		//System.out.println(getOp(i));
 		if (x == 0 && (!InstructionMap.noArgument.contains(mnem))){
 			bldr.append("I ");
 		} else if (x==0 && InstructionMap.noArgument.contains(mnem)){
