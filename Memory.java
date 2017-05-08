@@ -1,10 +1,10 @@
 package project;
 
 public class Memory {
-	public static int DATA_SIZE=2048;
+	public static final int DATA_SIZE=2048;
 	private int[] array=new int[DATA_SIZE];
 	private int changedIndex = -1;
-	private int[] getArray(){
+	int[] getData(){
 		return array;
 	}
 	public int getData(int index){
@@ -21,10 +21,6 @@ public class Memory {
 	public void clear(int start, int end){
 		for (int i=start; i<end; i++){
 			array[i]=0;
-			changedIndex=-1;
 		}
 	}
-    public int[] getData(){
-	return array;
-    }
 }
