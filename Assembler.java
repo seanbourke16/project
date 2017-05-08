@@ -21,12 +21,12 @@ public class Assembler {
 					//System.out.println(counter);
 				}
 				else{
-					if(sc.next().trim().startsWith("--")&&!dashes){
+				    String z=sc.nextLine();
+					if(z.trim().startsWith("--")&&!dashes){
 						dashes=true;
 					}
 					else{
-						code.add(sc.next());
-						//System.out.println(counter+"C");
+					    code.add(z);
 					}
 				}
 				//counter++;
@@ -36,7 +36,6 @@ public class Assembler {
 		} catch (FileNotFoundException e){
 			System.out.println("Input file does not exist");
 		}
-		System.out.println(code.size());
 		ArrayList<String> outText=new ArrayList<>();
 		for(String x:code){
 			String[] parts=x.trim().split("\\s+");
@@ -58,12 +57,12 @@ public class Assembler {
 				outText.add(Integer.toHexString(opcode).toUpperCase()+" 0 0");
 			}
 			else{
-				outText.add(Integer.toHexString(opcode).toUpperCase()+""+indirLvl+""+parts[1]);
+				outText.add(Integer.toHexString(opcode).toUpperCase()+" "+indirLvl+" "+parts[1]);
 			}
 		}
 		outText.add("-1");
 		outText.addAll(data);
-		System.out.println(outText);
+		//System.out.println(outText);
 		try (PrintWriter out = new PrintWriter(output)){
 			for(String s : outText) out.println(s);
 		} catch (FileNotFoundException e) {
