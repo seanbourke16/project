@@ -123,7 +123,7 @@ public class MemoryViewPanel implements Observer{
 		MemoryViewPanel panel = new MemoryViewPanel(view, model, 0, 500);
 		JFrame frame = new JFrame("TEST");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(400, 700);
+		frame.setSize(800, 700);
 		frame.setLocationRelativeTo(null);
 		frame.add(panel.createMemoryDisplay());
 		frame.setVisible(true);
