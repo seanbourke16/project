@@ -186,9 +186,10 @@ public class MachineModel {
 	}
 	);
 	//INSTRUCTION MAP entry for "JMPZ"
-	IMAP.put(0xA, (arg, level) -> {
+	IMAP.put(0xC, (arg, level) -> {
 		if(cpu.getAccum()==0){
-		    cpu.setpCounter(cpu.getpCounter()+arg);
+		    int arg1 = memory.getData(cpu.getMemBase()+arg); // CORRECTION
+cpu.setpCounter(arg1 + currentJob.getStartcodeIndex());   // CORRECTION
 		}
 		else{
 		    cpu.incrPC();
@@ -199,9 +200,9 @@ public class MachineModel {
 		callback.halt();			
 	    });
 	
-	jobs = new Job[4];
 	currentJob=jobs[0];
 	for (int i=0; i<4; i++){
+	    jobs[i]=new Job();
 	    jobs[i].setId(i);
 	    jobs[i].setStartcodeIndex(i*Code.CODE_MAX/4);
 	    jobs[i].setStartmemoryIndex(i*Memory.DATA_SIZE/4);

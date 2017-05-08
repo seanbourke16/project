@@ -72,13 +72,13 @@ public class InstructionMap {
 		opcode.put("ANDI", 0x7);
 		opcode.put("NOT", 0x8);
 		opcode.put("CMPL", 0x9);
-		opcode.put("CMPZ", 0x10);
-		opcode.put("JUMP", 0x11);
-		opcode.put("JUMPI", 0x11);
-		opcode.put("JUMPA", 0x11);
-		opcode.put("JMPZ", 0x12);
-		opcode.put("JMPZI", 0x12);
-		opcode.put("JMPZA", 0x12);
+		opcode.put("CMPZ", 0xA);
+		opcode.put("JUMP", 0xB);
+		opcode.put("JUMPI", 0xB);
+		opcode.put("JUMPA", 0xB);
+		opcode.put("JMPZ", 0xC);
+		opcode.put("JMPZI", 0xC);
+		opcode.put("JMPZA", 0xC);
 		opcode.put("HALT", 0x15);
 
 		mnemonics.put(0x0, "NOP");
