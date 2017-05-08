@@ -29,7 +29,11 @@ public class GUIMediator extends Observable{
 
 	}	
 	public void makeReady(String s){
-		
+	    stepControl.setAutoStepOn(false);
+	    model.setCurrentState(States.PROGRAM_LOADED_NOT_AUTOSTEPPING);
+	    model.getCurrentState().enter();
+	    setChanged();
+	    notifyObservers();
 	}
 	public States getCurrentState(){
 		return model.getCurrentState();
@@ -64,20 +68,101 @@ public class GUIMediator extends Observable{
 		notifyObservers();
 	}
 	public void step(){
-		if ((model.getCurrentState()!=States.PROGRAM_HALTED) && (model.getCurrentState()!= States.NOTHING_LOADED)){
-			try {
-				model.step();
-			}
-			catch (CodeAccessException e) {
-				JOptionPane.showMessageDialog(
-					frame, 
-					"Illegal access to code from line " + model.getpCounter() + "\n"
-					+ "Exception message: " + e.getMessage(),
-					"Run time error",
-					JOptionPane.OK_OPTION);
+	    if ((model.getCurrentState()!=States.PROGRAM_HALTED) && (model.getCurrentState()!= States.NOTHING_LOADED)){
+		try {
+		    model.step();
+		}
+		catch (CodeAccessException e) {
+		    JOptionPane.showMessageDialog(
+						  frame, 
+						  "Illegal access to code from line " + model.getpCounter() + "\n"
+						  + "Exception message: " + e.getMessage(),
+						  "Run time error",
+						  JOptionPane.OK_OPTION);
+		}
+		catch(ArrayIndexOutOfBoundsException e){
+		    JOptionPane.showMessageDialog(
+						  frame, 
+						  "Illegal access to data from line " + model.getpCounter() + "\n"
+						  + "Exception message: " + e.getMessage(),
+						  "Run time error",
+						  JOptionPane.OK_OPTION);
+		}
+		catch(NullPointerException e){
+		    JOptionPane.showMessageDialog(
+						  frame, 
+						  "NullPointerException from line " + model.getpCounter() + "\n"
+						  + "Exception message: " + e.getMessage(),
+						  "Run time error",
+						  JOptionPane.OK_OPTION);
+		}
+		catch(IllegalArgumentException e){
+		    JOptionPane.showMessageDialog(
+						  frame, 
+						  "Program error from line " + model.getpCounter() + "\n"
+						  + "Exception message: " + e.getMessage(),
+						  "Run time error",
+						  JOptionPane.OK_OPTION);
+		}
+		catch(DivideByZeroException e){
+		    JOptionPane.showMessageDialog(
+						  frame, 
+						  "DivideByZero error from line " + model.getpCounter() + "\n"
+						  + "Exception message: " + e.getMessage(),
+						  "Run time error",
+						  JOptionPane.OK_OPTION);
 		}
 		setChanged();
 		notifyObservers();
+	    }
+	}
+    public void execute(){
+	    while((model.getCurrentState()!=States.PROGRAM_HALTED) && (model.getCurrentState()!= States.NOTHING_LOADED)){
+		try {
+		    model.step();
 		}
+		catch (CodeAccessException e) {
+		    JOptionPane.showMessageDialog(
+						  frame, 
+						  "Illegal access to code from line " + model.getpCounter() + "\n"
+						  + "Exception message: " + e.getMessage(),
+						  "Run time error",
+						  JOptionPane.OK_OPTION);
+		}
+		catch(ArrayIndexOutOfBoundsException e){
+		    JOptionPane.showMessageDialog(
+						  frame, 
+						  "Illegal access to data from line " + model.getpCounter() + "\n"
+						  + "Exception message: " + e.getMessage(),
+						  "Run time error",
+						  JOptionPane.OK_OPTION);
+		}
+		catch(NullPointerException e){
+		    JOptionPane.showMessageDialog(
+						  frame, 
+						  "NullPointerException from line " + model.getpCounter() + "\n"
+						  + "Exception message: " + e.getMessage(),
+						  "Run time error",
+						  JOptionPane.OK_OPTION);
+		}
+		catch(IllegalArgumentException e){
+		    JOptionPane.showMessageDialog(
+						  frame, 
+						  "Program error from line " + model.getpCounter() + "\n"
+						  + "Exception message: " + e.getMessage(),
+						  "Run time error",
+						  JOptionPane.OK_OPTION);
+		}
+		catch(DivideByZeroException e){
+		    JOptionPane.showMessageDialog(
+						  frame, 
+						  "DivideByZero error from line " + model.getpCounter() + "\n"
+						  + "Exception message: " + e.getMessage(),
+						  "Run time error",
+						  JOptionPane.OK_OPTION);
+		}
+	    }
+	    setChanged();
+	    notifyObservers();
 	}
 }

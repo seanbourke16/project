@@ -24,7 +24,7 @@ public class FilesMgr {
 	private File currentlyExecutingFile = null; // java.io.File<br />
 	public FilesMgr(GUIMediator aGui){
 		this.gui=aGui;
-		//gui.getModel();
+		model=gui.getModel();
 	}
 	private void locateDefaultDirectory() {
 		//CODE TO DISCOVER THE ECLIPSE DEFAULT DIRECTORY:
