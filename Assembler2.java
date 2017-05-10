@@ -12,7 +12,7 @@ public class Assembler2 {
 	ArrayList<String> data = new ArrayList<>();
 	ArrayList<String> inText=new ArrayList<String>();
 	try{
-	    boolean dashes=false;
+	    //boolean dashes=false;
 	    Scanner sc = new Scanner(input);
 	    //int counter=0;
 	    while(sc.hasNextLine()){
