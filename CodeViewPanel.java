@@ -50,7 +50,7 @@ public class CodeViewPanel implements Observer {
 		JPanel textPanel = new JPanel();
 		textPanel.setLayout(new GridLayout(0,1));
 		JPanel hexPanel = new JPanel();
-		numPanel.setLayout(new GridLayout(0,1));
+		hexPanel.setLayout(new GridLayout(0,1));
 		
 		innerPanel.add(numPanel, BorderLayout.LINE_START);
 		innerPanel.add(textPanel, BorderLayout.CENTER);

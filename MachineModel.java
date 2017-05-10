@@ -277,12 +277,9 @@ cpu.setpCounter(arg1 + currentJob.getStartcodeIndex());   // CORRECTION
 	currentJob.setCurrentState(currentState);
     }
     public void clearJob(){
-<<<<<<< HEAD
 	memory.clear(currentJob.getStartmemoryIndex(),currentJob.getStartmemoryIndex()+Memory.DATA_SIZE/4);
 	c.clear(currentJob.getStartcodeIndex(), currentJob.getStartcodeIndex() + currentJob.getCodeSize());
-=======
 	memory.clear(currentJob.getStartcodeIndex(),currentJob.getStartcodeIndex()+currentJob.getCodeSize());
->>>>>>> 26d212ad5cf23b6446585f84c5aca0c6ed581e4c
 	setAccum(0);
 	setpCounter(currentJob.getStartcodeIndex());
 	currentJob.reset();
