@@ -48,7 +48,7 @@ public class GUIMediator extends Observable{
 	    model.setCurrentState(States.PROGRAM_LOADED_NOT_AUTOSTEPPING);
 	    model.getCurrentState().enter();
 	    setChanged();
-	    notifyObservers();
+	    notifyObservers(s);
 	}
 	public States getCurrentState(){
 		return model.getCurrentState();
@@ -61,7 +61,6 @@ public class GUIMediator extends Observable{
 		model.getCurrentState().enter();
 		setChanged();
 		notifyObservers();
-		s.enter();
 	}
 	public void exit() { // method executed when user exits the program
 		int decision = JOptionPane.showConfirmDialog(

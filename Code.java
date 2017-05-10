@@ -37,21 +37,41 @@ public class Code {
 	}
 	
 	public void clear(int start, int length){
+		int end = start + length - 1;
 		for (int i=0; i<length; i++){
 			code[start+i]=0;
 		}
 	}
     public String getHex(int i){
-	    int a=getOp(i);
-	    int b=getIndirLvl(i);
-	    int c;
-	    if(getArg(i)>0){
-		c=getArg(i);
-	    }
-	    else{
-		c=-getArg(i);
-	    }
-	    return Integer.toHexString(a).toUpperCase()+" "+Integer.toHexString(b).toUpperCase()+" "+Integer.toHexString(c).toUpperCase();
+//	    int a=getOp(i);
+//	    int b=getIndirLvl(i);
+//	    int c;
+//	    if(getArg(i)>0){
+//		c=getArg(i);
+//	    }
+//	    else{
+//		c=-getArg(i);
+//	    }
+//	    return Integer.toHexString(a).toUpperCase()+" "+Integer.toHexString(b).toUpperCase()+" "+Integer.toHexString(c).toUpperCase();
+    	int arg = getArg(i);
+		int a = getOp(i);
+		int b = getIndirLvl(i);
+		int c;
+		if (arg > 0) {
+			c = arg;
+		}
+		else {
+			c = -arg;
+		}
+		String returnHex = Integer.toHexString(a).toUpperCase() + " " +
+				Integer.toHexString(b).toUpperCase() + " " +
+				Integer.toHexString(c).toUpperCase();
+		if (arg < 0) {
+			returnHex = Integer.toHexString(a).toUpperCase() + " " +
+				Integer.toHexString(b).toUpperCase() + " -" +
+				Integer.toHexString(c).toUpperCase();
+		}
+		return returnHex;
     }
 	
 	public String getText(int i){
