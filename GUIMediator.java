@@ -240,7 +240,7 @@ public class GUIMediator extends Observable{
 	center.add(memoryViewPanel3.createMemoryDisplay());
 	frame.add(controlPanel.createControlDisplay(), BorderLayout.PAGE_END);
 	frame.add(processorPanel.createProcessorDisplay(),BorderLayout.PAGE_START);
-	//frame.addWindowListener(WindowListenerFactory.windowClosingFactory(e -> exit()));
+	frame.addWindowListener(WindowListenerFactory.windowClosingFactory(e -> exit()));
 	frame.setLocationRelativeTo(null);
 	model.setCurrentState(States.NOTHING_LOADED);
 	stepControl.start();
@@ -248,7 +248,7 @@ public class GUIMediator extends Observable{
 	setChanged();
 	notifyObservers();
 	//return HERE for the other GUI components
-	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	// return HERE for other setup details
 	frame.setVisible(true);
     }
