@@ -230,16 +230,16 @@ public class GUIMediator extends Observable{
     	Container content = frame.getContentPane();
     	content.setLayout(new BorderLayout(1,1)); // import java.awt.BorderLayout
     	content.setBackground(Color.BLACK); // import java.awt.Color
-    	content.setSize(1200, 600);
+    	frame.setSize(1200, 600);
     	JPanel center = new JPanel();
 	center.setLayout(new GridLayout(1, 3));
 	frame.add(codeViewPanel.createCodeDisplay(),BorderLayout.LINE_START);
-	frame.add(center, BorderLayout.CENTER);
+	frame.add(processorPanel.createProcessorDisplay(),BorderLayout.PAGE_START);
 	center.add(memoryViewPanel1.createMemoryDisplay());
 	center.add(memoryViewPanel2.createMemoryDisplay());
 	center.add(memoryViewPanel3.createMemoryDisplay());
+	frame.add(center);
 	frame.add(controlPanel.createControlDisplay(), BorderLayout.PAGE_END);
-	frame.add(processorPanel.createProcessorDisplay(),BorderLayout.PAGE_START);
 	frame.addWindowListener(WindowListenerFactory.windowClosingFactory(e -> exit()));
 	frame.setLocationRelativeTo(null);
 	model.setCurrentState(States.NOTHING_LOADED);
