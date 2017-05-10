@@ -136,7 +136,7 @@ public class MachineModel {
 	IMAP.put(0x9, (arg, level) -> {
 		if(level < 1 || level > 2) {
 		    throw new IllegalArgumentException(
-						       "Illegal indirection level in CMPL instruction");
+						       "Illegal indirection level in STO instruction");
 		}
 		if(level > 1) {
 		    IMAP.get(0x9).execute(memory.getData(cpu.getMemBase()+arg), level-1);
@@ -154,7 +154,7 @@ public class MachineModel {
 	IMAP.put(0xA, (arg, level) -> {
 		if(level < 1 || level > 2) {
 		    throw new IllegalArgumentException(
-						       "Illegal indirection level in CMPZ instruction");
+						       "Illegal indirection level in STO instruction");
 		}
 		if(level > 1) {
 		    IMAP.get(0xA).execute(memory.getData(cpu.getMemBase()+arg), level-1);
@@ -168,40 +168,31 @@ public class MachineModel {
 		    cpu.incrPC();
 		}
 	    });
-	// INSTRUCTION MAP entry for "JUMP"
+	//INSTRUCTION MAP entry for "JUMP"
 	IMAP.put(0xB, (arg, level) -> {
-		if (level < 0 || level > 3) {
-		    throw new IllegalArgumentException("Illegal indirection level in JUMP instruction");
+		if(level < 1 || level > 3) {
+		    throw new IllegalArgumentException(
+						       "Illegal indirection level in STO instruction");
 		}
-		if (level == 3) {
-		    int arg1 = memory.getData(cpu.getMemBase() + arg);
-		    cpu.setpCounter(arg1 + currentJob.getStartcodeIndex());
+		if(level > 0) {
+		    IMAP.get(0xB).execute(memory.getData(cpu.getMemBase()+arg), level-1);
+		} else {
+		    cpu.setpCounter(cpu.getpCounter()+arg);
 		}
-			else if (level > 0) {
-			    IMAP.get(0xB).execute(memory.getData(cpu.getMemBase() + arg), level - 1);
-			}
-			else {
-				cpu.setpCounter(cpu.getpCounter() + arg);
-			}
-	    });
-	
-	// INSTRUCTION MAP entry for "JMPZ"
+		if (level == 3){
+			int arg1 = memory.getData(cpu.getMemBase()+arg); // CORRECTION
+			cpu.setpCounter(arg1 + currentJob.getStartcodeIndex());   // CORRECTION
+		}
+	}
+	);
+	//INSTRUCTION MAP entry for "JMPZ"
 	IMAP.put(0xC, (arg, level) -> {
-		if (level < 0 || level > 3) {
-		    throw new IllegalArgumentException("Illegal indirection level in JMPZ instruction");
+		if(cpu.getAccum()==0){
+		    int arg1 = memory.getData(cpu.getMemBase()+arg); // CORRECTION
+cpu.setpCounter(arg1 + currentJob.getStartcodeIndex());   // CORRECTION
 		}
-		if (level == 3 && cpu.getAccum() == 0) {
-		    int arg1 = memory.getData(cpu.getMemBase() + arg);
-		    cpu.setpCounter(arg1 + currentJob.getStartcodeIndex());
-		}
-		else if (level > 0 && cpu.getAccum() == 0 && level != 3) {
-		    IMAP.get(0xC).execute(memory.getData(cpu.getMemBase() + arg), level - 1);
-			}
-		else if (level == 0 && cpu.getAccum() == 0) {
-		    cpu.setpCounter(cpu.getpCounter() + arg);
-		}
-		else if (cpu.getAccum() != 0) {
-				cpu.incrPC();
+		else{
+		    cpu.incrPC();
 		}
 	    });
 	//INSTRUCTION MAP entry for "HALT"
@@ -218,6 +209,10 @@ public class MachineModel {
 	}
 	currentJob=jobs[0];
     }
+    public Instruction get(Integer key) {
+		return IMAP.get(key);
+	}
+
     public int getAccum() {
 	return cpu.getAccum();
     }
